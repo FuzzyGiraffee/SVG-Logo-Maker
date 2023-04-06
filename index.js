@@ -1,11 +1,13 @@
+//import 'fs' and 'inquirer' methods
 const fs = require('fs');
 const inquirer = require('inquirer');
-
+//import custom methods
 const shapes = require('./lib/shapes')
 const generateSvg = require('./lib/generateSvg')
 const svgColors = require('./lib/svgColors')
 const {lengthVerify, colorVerify, hexVerify} = require('./lib/verification')
 
+//list of questions asked by inquirer
 const questions = [
     {
         
@@ -31,12 +33,17 @@ const questions = [
     },
 ];
 
+//function to display questions
 inquirer.prompt(questions)
     .then(function (response) {
+        //call test scripts
         lengthVerify(response)
         hexVerify(response)
-
+        colorVerify(response)
         //TODO: create generateSvg Script to replace 'generateSvg'
+        //generate file using generateSVG as content
+        //TODO: make sure this outputs some kind of SVG file, even if it isnt filled in compeletley before class @ 6PM CST
+        
         fs.writeFile(`logo.svg`, 'generateSvg', (err) =>
             err ? console.log(err) : console.log('Generated logo.svg'))
     });
